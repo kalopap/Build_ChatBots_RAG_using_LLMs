@@ -4,10 +4,11 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.chat_message_histories import SQLChatMessageHistory
 from langchain_core.runnables import RunnableWithMessageHistory
+from langchain_core.runnables import chain
 from sqlalchemy import create_engine
 
 ## Setup Env variables and LangSmith tracing
-load_dotenv()
+load = load_dotenv('./../env')
 
 ### Initialize the LLM
 llm1 = ChatOllama(

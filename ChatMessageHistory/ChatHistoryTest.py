@@ -1,10 +1,13 @@
-import config
+from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
+
+## Setup Env variables and LangSmith tracing
+load_dotenv()
 
 ## Initialize the llm
 llm1 = ChatOllama(
