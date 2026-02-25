@@ -1,0 +1,38 @@
+### THIS FILE IS JUST MY LEARNINGS AND UNDERSTANDINGS 
+
+1. Jupyter Notebook --> to execute cell by cell instead of the whole program unlike python or java code
+2. LangChain --> is a framework to run LLMs and interact with them. Has support to almost all models including OpenAI, Anthropic, 
+Google, etc,Other similar frameworks available in the market are AutoGen, CrewAI etc., called using langchain_openai, langchain_ollama etc
+3. LangSmith --> is a tool to trace and observe the logs of LLM interactions. Tracks all the activity done by the LLMs including 
+input/output prompts. 
+4. LangGraph --> is a library to build stateful agents and multi agents
+5. Ollama --> is a tool that supports hosting and running a LLM on local machine. Can access Ollama api from Postman also 
+using the end point: http://localhost:11434/api This app provides different apis which can be directly called in Postman or can be
+called from Terminal also. 
+
+---------Technical Setup----------
+1. Install the dependencies using pip install command. In ideal projects, these dependencies are provided as part of requirements.txt FILE
+which will be used when building and running the project from CI/CD. To run from CI/CD, the dependencies/setup is taken care by this command:
+pip install -r requirements.txt
+
+2. In VSCode, when we are using Jupyter Notebook, we can directly call these installation commands that will install langchain, 
+langchain_ollama and python_dotenv
+
+3. Once the installation is complete, test the llm by calling ollama llm using ChatOllama and pass base_url and the model name. We can set the temperature
+and max_tokens values also. 
+llm = ChatOllama(base_url="http://localhost:11434", model=<model_name>, max_tokens=200) etc
+
+4. Setup LangSmith for tracing the llm activity:
+Create a .env file and add the LangSmith project's(create one) references to the env file
+
+5. Call the load_dotenv from dotenv and reference the path of .env file in the project. The LangSmith project
+will be setup and starts tracing the llm responses from our code
+
+------------ Important Usages ---------------
+ChatOllama --> to invoke the ollama endpoint directly when the input prompt is fixed
+PromptTemplate --> to provide custom parameterized prompts
+ChatPromptTemplate --> to provide user and system specific prompts, eg can setup a role to the llm
+and ask it to give response as that roleplay
+SystemMessagePromptTemplate --> can setup llm prompt inputs like "You are an expert in <something>"
+HumanMessagePromptTemplate --> ask the prompt/query to the llm
+

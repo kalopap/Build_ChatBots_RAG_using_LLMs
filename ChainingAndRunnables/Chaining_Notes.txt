@@ -1,0 +1,36 @@
+### CHAINING AND RUNNABLES #####
+
+Runnable --> it is an interface and helps in "chaining" the components. 
+A runnable can be invoked, batched or streamed. Each runnable can be attached to another
+runnable making it a chain, passing the output of one runnable to the next one. This is the core foundation for working with 
+LangChain and it helps in creating agents that actually do a given task/job
+
+LangChain Expression Language(LCEL):
+a declarative approach to building new Runnables from existing runnables. The runnable created using LCEL is called a chain. 
+LCEL is an orchestration solution - allowing LangChain to handle run-time execution of chains in an optimized way.
+
+Chaining -> means a chain of steps using a '|' to connect all runnables. First we write a prompt template, then pass it to the llm
+and get the response. This entire steps can be run in a chain as -> prompt | llm | StrOutputParser()
+
+StrOutputParser -> is a class that helps in parsing and formatting the response/output of the prompt. 
+
+Runnables can run in Sequence or in parallel
+Sequential chaining -> multiple chains can be run in sequence IF the OUTPUT of one chain has to be the INPUT of another chain
+syntax:  {response:chain1} | prompt2 | llm | StrOutputParser()
+
+Parallel chaining(RunnableParallel) --> 
+when two chains can run independently, the chains can be run in parallel by assigning them to different llms
+syntax: chain1 = prompt1 | llm1 | StrOutputParser()
+        chain2 = prompt2 | llm2 | StrOutputParser()
+        parallel_runs = RunnableParallel(first = chain1, second = chain2)
+
+This saves time and the both outputs can be passed to another chain(if needed). Eg scenarios include fetching patient records from 
+different sources(insurance details, previous visit history) etc.
+
+RunnableLamda ---> When we want to make a decision in between the chain steps or to run a python executable/runnable, RunnableLambda helps
+first we define a method or a python code that does the action of taking decisions based on the response
+then in the chaining, we call RunnableLambda(<methodname>) and that will assign the value in run time.
+
+Custom Chaining ---> When we want to create our own runnables(methods) as input in the chain steps. Use @chain decoration and it can
+be directly called in the chain step. 
+
