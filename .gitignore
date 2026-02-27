@@ -1,2 +1,4 @@
 .env
 .DS_Store
+diet_chathistory.db
+user_chathistory.db
